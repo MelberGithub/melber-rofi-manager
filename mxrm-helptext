@@ -1,0 +1,11 @@
+
+
+Rofi is a fast and handy pop-up app that can have various functions (modi) as determined by the user. By default in MX Fluxbox it displays an app launcher and a help page, but a calculator, run dialog, window switcher and more are also available. It can easily be started by pressing the logo key or using a menu.
+
+
+MX Rofi manager provides a convenient method of making changes in the functions to be shown, switching the current theme, changing colors of the default theme or manually editing themes not based on the default. It does that by manipulating the settings in $HOME/.config/rofi/
+
+
+For more detailed help, consult rofi's "help" tab or visit the MX wiki
+
+https://mxlinux.org/wiki/help-files/help-rofi/
