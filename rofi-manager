@@ -1,7 +1,7 @@
 #!/bin/bash
 #Rofi-Manager
 #Tool to manage rofi settings
-#V.0.2 by Melber and MX Devs, 09 September 2022
+#V.0.3 by Melber and MX Devs, 10 September 2022
 #License: GPL-3.0+
 
 
@@ -10,7 +10,7 @@
 source gettext.sh
 
 export TEXTDOMAINDIR=/usr/share/locale 
-export TEXTDOMAIN="ddm-mx"
+export TEXTDOMAIN="mxfb-accessories"
 
 
 #define some variables
@@ -19,7 +19,7 @@ ROFIPATH="$HOME/.config/rofi/themes"
 
 
 #delete stylelist and tempclr after use
-#trap "rm -r "$ROFIPATH/tempdir" " EXIT
+trap "rm -r "$ROFIPATH/tempdir" " EXIT
 
 #
 if [ ! -d $ROFIPATH ]; then
@@ -36,6 +36,34 @@ if [ ! -d $ROFIPATH/tempdir ]; then
 
 fi
 
+# notify user and back up config.rasi if mx-rofi-manager has not already been launched
+
+if [ ! -f $ROFIPATH/MX-comfort-rr ]; then
+
+NOW=$(date +%Y"%m%d")
+
+MESSAGE="$(eval_gettext 'This tool edits the rofi config file.\n\nThe existing file will be backed up as \n\n<b>$HOME/.restore/rofi/config.rasi_$NOW</b>')"
+
+##begin message box
+yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=350 --height=200 --text-align=center --text="\n\n$MESSAGE\n\n" --text-align=center --center --borders=20 --button="Cancel":7 --button=$"OK to proceed?":6
+
+
+if [ ! "$?" = "6" ]; then
+
+	exit 0
+		
+else
+
+mkdir -p $HOME/.restore/rofi/
+cp $HOME/.config/rofi/config.rasi $HOME/.restore/rofi/config.rasi_$(date -d "today" +"%Y%m%d")
+cp /usr/share/rofi/config.rasi $HOME/.config/rofi/
+#cp /usr/share/rofi/rofi-help $HOME/.config/rofi/  << will be called from installation location
+#cp /usr/share/rofi/calc-help $HOME/.config/rofi/  << will be called from installation location
+cp /usr/share/mxrr/template.rasi $HOME/.config/rofi/themes/
+cp /usr/share/mxrr/MX-comfort.rasi $HOME/.config/rofi/themes/  
+
+fi
+fi
 
 ###################################################################
 ###################################################################
@@ -177,7 +205,7 @@ help: a set of links about using rofi
 none: tab will not be shown
 \n')"
 
-TABS=(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --text="$TEXTTABS1" --text-align=left --height=400 --width=600 --borders=20 --center --separator=" " --form --columns=3 --button="gtk-quit":1 --button="gtk-ok":0 \
+TABS=(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --text="$TEXTTABS1" --text-align=left --height=400 --width=600 --borders=20 --center --separator=" " --form --columns=3 --button="gtk-cancel":1 --button="gtk-ok":0 \
 --field="$(gettext '1st Tab')":CB "drun!calc!run!ssh!window!help" \
 --field="$(gettext '2nd Tab')":CB "help!calc!drun!run!ssh!window!none" \
 --field="$(gettext '3rd Tab')":CB "none!help!calc!drun!run!ssh!window" \
@@ -239,7 +267,7 @@ rofi_recolor() {
 
 #define some variables
 
-TITLE="$(gettext 'MX-rofi-recolor')"
+TITLE="$(gettext 'MX-Rofi-Recolor')"
 CLASS="mxrm"
 ROFIPATH="$HOME/.config/rofi/themes"
 ICONPATH="/usr/share/pixmaps/mxrm-icon.png"
@@ -248,32 +276,32 @@ source gettext.sh
 
 # notify user and back up config.rasi if mxrr has not already been launched
 
-if [ ! -f $ROFIPATH/MX-comfort-rr ]; then
+#if [ ! -f $ROFIPATH/MX-comfort-rr ]; then
 
-NOW=$(date +%Y"%m%d")
+#NOW=$(date +%Y"%m%d")
 
-MESSAGE="$(eval_gettext 'This tool edits the rofi config file.\n\nThe existing file will be backed up as \n\n<b>$HOME/.restore/rofi/config.rasi_$NOW</b>')"
+#MESSAGE="$(eval_gettext 'This tool edits the rofi config file.\n\nThe existing file will be backed up as \n\n<b>$HOME/.restore/rofi/config.rasi_$NOW</b>')"
 
 ##begin message box
-yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=350 --height=200 --text-align=center --text="\n\n$MESSAGE\n\n" --text-align=center --center --borders=20 --button="Cancel":7 --button=$"OK to proceed?":6
+#yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=350 --height=200 --text-align=center --text="\n\n$MESSAGE\n\n" --text-align=center --center --borders=20 --button="Cancel":7 --button=$"OK to proceed?":6
 
 
-if [ ! "$?" = "6" ]; then
+#if [ ! "$?" = "6" ]; then
 
-	exit 0
+#	exit 0
 		
-else
+#else
 
-mkdir -p $HOME/.restore/rofi/
-cp $HOME/.config/rofi/config.rasi $HOME/.restore/rofi/config.rasi_$(date -d "today" +"%Y%m%d")
-cp /usr/share/rofi/config.rasi $HOME/.config/rofi/
-cp /usr/share/rofi/rofi-help $HOME/.config/rofi/
-cp /usr/share/rofi/calc-help $HOME/.config/rofi/
-cp /usr/share/mxrr/template.rasi $HOME/.config/rofi/themes/
-cp /usr/share/mxrr/MX-comfort.rasi $HOME/.config/rofi/themes/
+#mkdir -p $HOME/.restore/rofi/
+#cp $HOME/.config/rofi/config.rasi $HOME/.restore/rofi/config.rasi_$(date -d "today" +"%Y%m%d")
+#cp /usr/share/rofi/config.rasi $HOME/.config/rofi/
+#cp /usr/share/rofi/rofi-help $HOME/.config/rofi/  << LEAVE COMMENTED OUT
+#cp /usr/share/rofi/calc-help $HOME/.config/rofi/  << LEAVE COMMENTED OUT
+#cp /usr/share/mxrr/template.rasi $HOME/.config/rofi/themes/
+#cp /usr/share/mxrr/MX-comfort.rasi $HOME/.config/rofi/themes/  
 
-fi
-fi
+#fi
+#fi
 
 
 # Check if MX-comfort-rr exists, create if false
@@ -296,7 +324,7 @@ sed -i 's|-rr||g' $ROFIPATH/tempdir/themelist.txt
 
 TEXTBASE1="$(gettext '\n<b> Choose which theme to use as a starting point</b>\n')"
 
-BASESTYLE=$( yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --text="$TEXTBASE1" --width=350 --height=300 --center --list --no-headers --separator="" --column=Style --text-align=center < $ROFIPATH/tempdir/themelist.txt )
+BASESTYLE=$( yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --text="$TEXTBASE1" --width=600 --height=400 --center --list --no-headers --separator="" --column=Style --text-align=center < $ROFIPATH/tempdir/themelist.txt )
 
 GETOUT=$(echo "$?")
 
@@ -363,7 +391,7 @@ color_picker() {
 
 mxrrhelp() {
 source gettext.sh
-yad --title="$(gettext 'MX-Rofi-recolor help')"  --class=mxrrhelp --window-icon="$ICONPATH" --borders=20 --fixed --center --width=600 --height=400 --image /usr/share/pixmaps/mxrr-help.png --button="$(gettext 'Return to Main Window')":1 \
+yad --title="$(gettext 'MX-Rofi-Recolor Help')"  --class=mxrrhelp --window-icon="$ICONPATH" --borders=20 --fixed --center --width=600 --height=400 --image /usr/share/pixmaps/mxrr-help.png --button="$(gettext 'Return to Main Window')":1 \
 
 }
 
@@ -372,8 +400,8 @@ export -f color_picker mxrrhelp
 #MAIN
 #color selection dialogue
 
-MAIN=(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --borders=20 --center --width=600 --height=400 --fixed --form --columns=5 --align=right --separator=" " --button="gtk-help":"bash -c mxrrhelp" --button="gtk-quit":1 --button="gtk-ok":0 \
---text="$(egettext '<b>\nEdit colors and create a new rofi theme.\n\n</b>')" \
+MAIN=(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --borders=20 --center --width=600 --height=400 --fixed --form --columns=5 --align=right --separator=" " --button="gtk-help":"bash -c mxrrhelp" --button="gtk-cancel":1 --button="gtk-ok":0 \
+--text="$(gettext '<b>\nEdit colors and create a new rofi theme.\n\n</b>')" \
 --field="$(gettext 'Title Background')":CLR "$COL01" \
 --field="$(gettext 'Title Text')":CLR "$COL02" \
 --field="$(gettext 'Searchbar Background')":CLR "$COL03" \
@@ -636,7 +664,7 @@ CLASS="mxrm"
 ICONPATH="/usr/share/pixmaps/mxrr-icon.png"
 
 yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" \
---borders=20 --width=600 --height=600 --center --fixed --text-info --wrap --margins=20 < $HOME/.config/rofi/mxrm-helptext  --fontname="12" --show-uri --button="gtk-close" \
+--borders=20 --width=600 --height=600 --center --fixed --text-info --wrap --margins=20 < /usr/share/mx-rofi-manager/mxrm-helptext  --fontname="12" --show-uri --button="gtk-close" \
 	
 }
 
@@ -653,13 +681,13 @@ CLASS="mxrm"
 ICONPATH="/usr/share/pixmaps/mxrm-icon.png"
 
 TEXTMXRM="$(gettext '\n<b><big>Rofi Manager is a tool to configure rofi themes.</big>\n\nWhat would you like to do?</b>\n\n')"
-BUTTONTHEME="$(gettext ' - Change the current rofi theme - ')"
-BUTTONTABS="$(gettext ' - Change the functions (<i>modi</i>) of the rofi tabs - ')"
-BUTTONRECOLOR="$(gettext ' - Recolor a rofi theme based on MX-comfort - ')"
-BUTTONE="$(gettext ' - Edit a rofi theme config file - ')"
+BUTTONTHEME="$(gettext 'Change the current rofi theme')"
+BUTTONTABS="$(gettext 'Change the functions (<i>modi</i>) of the rofi tabs')"
+BUTTONRECOLOR="$(gettext 'Recolor a rofi theme based on MX-comfort')"
+BUTTONEDIT="$(gettext 'Edit a rofi theme config file')"
 
 yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --borders=20 --center --width=600 --height=400 --fixed --form --text-align=center --text="$TEXTMXRM" --button="Help":"bash -c rofi_help" --button="gtk-close" --buttons-layout=spread \
---field='- Change the current rofi theme -:FBTN' 'bash -c rofi_theme' \
---field='- Change the functions (<i>modi</i>) of the rofi tabs -:FBTN' 'bash -c rofi_tabs' \
---field='- Recolor a rofi theme based on MX-comfort -:FBTN' 'bash -c rofi_recolor' \
---field='- Edit a rofi theme config file -:FBTN' 'bash -c rofi_edit' \
+--field="$BUTTONTHEME:FBTN" 'bash -c rofi_theme' \
+--field="$BUTTONTABS:FBTN" 'bash -c rofi_tabs' \
+--field="$BUTTONRECOLOR:FBTN" 'bash -c rofi_recolor' \
+--field="$BUTTONEDIT:FBTN" 'bash -c rofi_edit' \
