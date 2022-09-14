@@ -93,18 +93,23 @@ source gettext.sh
 
 cd $HOME/.config/rofi
 
-ROFICHECK="$(grep "@import" config.rasi)"
+ROFICHECK1="$(grep "@import" config.rasi)"
 
-if [ "$ROFICHECK" != 0 ]; then
+if [ "$ROFICHECK1" = "" ]; then
 
 sed -i "s/@import/@theme/g" config.rasi
 
 fi
 
-sed -i "s/width\: 25/\/\/width\: 25/g" config.rasi
-sed -i "s/lines\: 20/\/\/lines\: 20/g" config.rasi
-sed -i "s/fake-transparency\: true/\/\/fake-transparency\: true/g" config.rasi
+ROFICHECK2="$(grep "//width" config.rasi)"
 
+if [ "$ROFICHECK2" = "" ]; then
+
+sed -i 's/width\:/\/\/width\:/g' config.rasi
+sed -i 's/lines\:/\/\/lines\:/g' config.rasi
+sed -i 's/fake-transparency\:/\/\/fake-transparency\:/g' config.rasi
+
+fi
 
 #################################
 #define function rofi_preview
@@ -161,7 +166,6 @@ sed -i 's|.rasi||g' $ROFIPATH/tempdir/rasilist.txt
 #select theme
 
 TEXTTHEME1="$(gettext '\n<b>Select rofi theme to make current</b>
-
 Double click a theme name to open a preview rofi.\n')"
 
 NEWTHEME=$( yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --text="$TEXTTHEME1" --width=600 --height=400 --borders=20 --center --fixed --list --no-headers --separator="" --column=Style --text-align=left --dclick-action='@bash -c "rofi_preview %s;"' < $ROFIPATH/tempdir/rasilist.txt )
@@ -179,31 +183,24 @@ fi
 
 cd $HOME/.config/rofi/
 
-ROFIOLD="$(grep '@theme' $HOME/.config/rofi/config.rasi | tail -1)"
-#ROFIOLD=$(echo "${ROFIOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
-ROFIOLDCOMMENT=//$ROFIOLD
+ROFIOLD="$(grep "@theme" $HOME/.config/rofi/config.rasi | tail -1)"
+ROFIOLDCOMMENT="//$ROFIOLD"
+ROFIOLD=$(echo "${ROFIOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 ROFIOLDCOMMENT=$(echo "${ROFIOLDCOMMENT}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
 
 if [ ! -f $ROFIPATH/$NEWTHEME.rasi ]; then
 
 	ROFINEW="@theme \""$ROFIPATHUSR"/"$NEWTHEME".rasi"\"
-	ROFINEW=$(echo "${ROFINEW}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 	
-
 else
 
 	ROFINEW="@theme \""$ROFIPATH"/"$NEWTHEME".rasi"\"
-	ROFINEW=$(echo "${ROFINEW}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
 fi
 
-cd $HOME/.config/rofi
+sed -i "s/$ROFIOLD/$ROFIOLDCOMMENT/g" config.rasi
 
-sed -i "s/${ROFIOLD}/${ROFIOLDCOMMENT}/g" $HOME/.config/rofi/config.rasi
-
-
-#sed -i -e "s/${ROFIOLD}/${ROFINEW}/g" config.rasi
 
 echo $ROFINEW >> config.rasi
 
@@ -232,7 +229,6 @@ source gettext.sh
 
 TEXTTABS1="$(gettext '
 <b>Select which tabs rofi should display</b>
-
 drun: the MX-21 default that displays available apps
 calc: a powerful calculation engine
 run: displays all available executable files
@@ -565,15 +561,18 @@ sed -i "s/xyz011/$COL11/g" $NEWNAME.rasi
 if [ "$MAKECUR" = yes ]; then
 
 	cd $HOME/.config/rofi/
-###################################################################################
-	ROFIOLD="$(grep '@theme' $HOME/.config/rofi/config.rasi | tail -1)"
-	ROFIOLD=$(echo "${ROFIOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
-	ROFINEW="@theme \""$ROFIPATH"/"$NEWNAME".rasi"\"
-	ROFINEW=$(echo "${ROFINEW}" | sed -e 's/[]$\/*[\^]/\\&/g' )
-###################################################################################
-	sed -i -e "s/${ROFIOLD}/${ROFINEW}/g" config.rasi
-###################################################################################
+	ROFIOLD="$(grep "@theme" $HOME/.config/rofi/config.rasi | tail -1)"
+	ROFIOLDCOMMENT="//$ROFIOLD"	
+	ROFIOLD=$(echo "${ROFIOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
+	ROFIOLDCOMMENT=$(echo "${ROFIOLDCOMMENT}" | sed -e 's/[]$\/*[\^]/\\&/g' )
+
+
+	ROFINEW="@theme \""$ROFIPATH"/"$NEWNAME".rasi\""
+
+	sed -i "s/$ROFIOLD/$ROFIOLDCOMMENT/g" config.rasi
+
+	echo $ROFINEW >> config.rasi
 
 	TEXTALLDONE1="$(eval_gettext 'All done!\n<b>$NEWNAME</b> has been set as the current rofi theme.')"
 
