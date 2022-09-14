@@ -88,7 +88,7 @@ ROFIPATHUSR="/usr/share/rofi/themes"
 ICONPATH="/usr/share/pixmaps/mxrm-icon.png"
 source gettext.sh
 
-
+#################################
 #fix rasi
 
 cd $HOME/.config/rofi
@@ -101,9 +101,9 @@ sed -i "s/import/theme/g" config.rasi
 
 fi
 
-sed -i 's/width: 25///width: 25/g' config.rasi
-sed -i 's/lines: 20///lines: 20/g' config.rasi
-sed -i 's/fake-transparency: true///fake-transparency: true/g' config.rasi
+sed -i "s/width\: 25/\/\/width\: 25/g" config.rasi
+sed -i "s/lines\: 20/\/\/lines\: 20/g" config.rasi
+sed -i "s/fake-transparency\: true/\/\/fake-transparency\: true/g" config.rasi
 
 
 #################################
