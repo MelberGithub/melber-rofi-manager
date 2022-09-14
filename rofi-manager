@@ -1,7 +1,7 @@
 #!/bin/bash
 #Rofi-Manager
 #Tool to manage rofi settings
-#V.0.3e by Melber and MX Devs, 13 September 2022
+#V.0.4 by Melber and MX Devs, 14 September 2022
 #License: GPL-3.0+
 #mxrm-icon based on applications-development and applications-interfacedesign icons from papirus icon set
 
@@ -97,13 +97,13 @@ TEMPTHEME=$1
 ROFIPATH="$HOME/.config/rofi/themes"
 ROFIPATHUSR="/usr/share/rofi/themes"
 
-ROFIOLD="$(grep "themes" $HOME/.config/rofi/config.rasi)"
+ROFIOLD="$(grep '@theme' $HOME/.config/rofi/config.rasi | tail -1)"
 ROFIOLD=$(echo "${ROFIOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
 
 if [ ! -f $ROFIPATH/$TEMPTHEME.rasi ]; then
 
-	ROFITEMP="@import \""$ROFIPATHUSR"/"$TEMPTHEME".rasi"\"
+	ROFITEMP="@theme \""$ROFIPATHUSR"/"$TEMPTHEME".rasi"\"
 	ROFITEMP=$(echo "${ROFITEMP}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
 	else
@@ -175,25 +175,33 @@ fi
 
 cd $HOME/.config/rofi/
 
-ROFIOLD1="$(grep "themes" $HOME/.config/rofi/config.rasi)"
-ROFIOLD1=$(echo "${ROFIOLD1}" | sed -e 's/[]$\/*[\^]/\\&/g' )
+ROFIOLD="$(grep '@theme' $HOME/.config/rofi/config.rasi | tail -1)"
+#ROFIOLD=$(echo "${ROFIOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
+ROFIOLDCOMMENT=//$ROFIOLD
+ROFIOLDCOMMENT=$(echo "${ROFIOLDCOMMENT}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
 
 if [ ! -f $ROFIPATH/$NEWTHEME.rasi ]; then
 
-	ROFINEW1="@theme \""$ROFIPATHUSR"/"$NEWTHEME".rasi"\"
-	ROFINEW1=$(echo "${ROFINEW1}" | sed -e 's/[]$\/*[\^]/\\&/g' )
+	ROFINEW="@theme \""$ROFIPATHUSR"/"$NEWTHEME".rasi"\"
+	ROFINEW=$(echo "${ROFINEW}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 	
 
 else
 
-	ROFINEW1="@theme \""$ROFIPATH"/"$NEWTHEME".rasi"\"
-	ROFINEW1=$(echo "${ROFINEW1}" | sed -e 's/[]$\/*[\^]/\\&/g' )
+	ROFINEW="@theme \""$ROFIPATH"/"$NEWTHEME".rasi"\"
+	ROFINEW=$(echo "${ROFINEW}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
 fi
 
 cd $HOME/.config/rofi
-sed -i -e "s/${ROFIOLD1}/${ROFINEW1}/g" config.rasi
+
+sed -i "s/${ROFIOLD}/${ROFIOLDCOMMENT}/g" $HOME/.config/rofi/config.rasi
+
+
+#sed -i -e "s/${ROFIOLD}/${ROFINEW}/g" config.rasi
+
+echo $ROFINEW >> config.rasi
 
 
 TEXTTHEME2="$(eval_gettext 'All done!\n\n<b>$NEWTHEME</b> has been set as the current rofi theme.\n\n')"
@@ -297,40 +305,6 @@ CLASS="mxrm"
 ROFIPATH="$HOME/.config/rofi/themes"
 ICONPATH="/usr/share/pixmaps/mxrm-icon.png"
 source gettext.sh
-
-
-# notify user and back up config.rasi if mxrr has not already been launched
-
-#if [ ! -f $ROFIPATH/MX-comfort-rr ]; then
-
-#NOW=$(date +%Y"%m%d")
-
-#MESSAGE="$(eval_gettext 'This tool edits the rofi config file.\n\nThe existing file will be backed up as \n\n<b>$HOME/.restore/rofi/config.rasi_$NOW</b>')"
-
-##begin message box
-#yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=350 --height=200 --text-align=center --text="\n\n$MESSAGE\n\n" --text-align=center --center --borders=20 --button="Cancel":7 --button="$(gettext 'OK to proceed?')":6
-
-
-#if [ ! "$?" = "6" ]; then
-
-#	exit 0
-		
-#else
-
-#mkdir -p $HOME/.restore/rofi/
-#cp $HOME/.config/rofi/config.rasi $HOME/.restore/rofi/config.rasi_$(date -d "today" +"%Y%m%d")
-#cp /usr/share/rofi/config.rasi $HOME/.config/rofi/
-#cp /usr/share/rofi/rofi-help $HOME/.config/rofi/  << LEAVE COMMENTED OUT
-#cp /usr/share/rofi/calc-help $HOME/.config/rofi/  << LEAVE COMMENTED OUT
-#cp /usr/share/mxrr/template.rasi $HOME/.config/rofi/themes/
-#cp /usr/share/mxrr/MX-comfort.rasi $HOME/.config/rofi/themes/  
-
-#fi
-#fi
-
-
-
-
 
 #read available styles
 
@@ -587,15 +561,15 @@ sed -i "s/xyz011/$COL11/g" $NEWNAME.rasi
 if [ "$MAKECUR" = yes ]; then
 
 	cd $HOME/.config/rofi/
-
-	ROFIOLD="$(grep "themes" $HOME/.config/rofi/config.rasi)"
+###################################################################################
+	ROFIOLD="$(grep '@theme' $HOME/.config/rofi/config.rasi | tail -1)"
 	ROFIOLD=$(echo "${ROFIOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
 	ROFINEW="@theme \""$ROFIPATH"/"$NEWNAME".rasi"\"
 	ROFINEW=$(echo "${ROFINEW}" | sed -e 's/[]$\/*[\^]/\\&/g' )
-
+###################################################################################
 	sed -i -e "s/${ROFIOLD}/${ROFINEW}/g" config.rasi
-
+###################################################################################
 
 	TEXTALLDONE1="$(eval_gettext 'All done!\n<b>$NEWNAME</b> has been set as the current rofi theme.')"
 
