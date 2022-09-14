@@ -88,6 +88,24 @@ ROFIPATHUSR="/usr/share/rofi/themes"
 ICONPATH="/usr/share/pixmaps/mxrm-icon.png"
 source gettext.sh
 
+
+#fix rasi
+
+cd $HOME/.config/rofi
+
+ROFICHECK="$(grep "import" config.rasi)"
+
+if [ -z "$ROFICHECK" ]; then
+
+sed -i "s/import/theme/g" config.rasi
+
+fi
+
+sed -i 's/width: 25///width: 25/g' config.rasi
+sed -i 's/lines: 20///lines: 20/g' config.rasi
+sed -i 's/fake-transparency: true///fake-transparency: true/g' config.rasi
+
+
 #################################
 #define function rofi_preview
 rofi_preview() {
@@ -129,21 +147,7 @@ exit
 
 export -f rofi_preview
 
-
-#fix rasi
-
-cd $HOME/.config/rofi
-
-ROFICHECK="$(grep "import" config.rasi)"
-
-if [ -z "$ROFICHECK" ]; then
-
-sed -i "s/import/theme/g" config.rasi
-
-fi
-
-
-
+#################################
 #read available themes
 
 cd $ROFIPATH
