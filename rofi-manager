@@ -93,11 +93,11 @@ source gettext.sh
 
 cd $HOME/.config/rofi
 
-ROFICHECK="$(grep "import" config.rasi)"
+ROFICHECK="$(grep "@import" config.rasi)"
 
-if [ -z "$ROFICHECK" ]; then
+if [ "$ROFICHECK" != 0 ]; then
 
-sed -i "s/import/theme/g" config.rasi
+sed -i "s/@import/@theme/g" config.rasi
 
 fi
 
