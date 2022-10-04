@@ -312,7 +312,7 @@ CLASS="mxrm"
 #/usr/share/mx-rofi-manager/mxrm-helptext-position 
 
 yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" \
---borders=20 --width=600 --height=600 --center --fixed --text-info --wrap --margins=20 < $HOME/Dokumente/mxrm-helptext-position  --fontname="12" --button="gtk-close" \
+--borders=20 --width=600 --height=600 --center --fixed --text-info --wrap --margins=20 < $HOME/Dokumente/mxrm-helptext-position --fontname="Noto Sans 12" --button="gtk-close" \
 	
 }
 
@@ -575,7 +575,7 @@ ROFIFONTOLD=$(echo "${ROFIFONTOLD}" | sed -e 's/[]$\/*"[\^]/\\&/g' )
 #get new position
 #MAINPOS
 
-MAINPOS=(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --borders=20 --center --width=600 --height=400 --fixed --form --columns=1 --align=left --separator=" " --button="gtk-help":"bash -c rofi_help-position" --button="gtk-cancel":1 --button="gtk-ok":0 \
+MAINPOS=(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --borders=20 --center --width=600 --height=400 --fixed --form --columns=1 --align=left --separator=" " --button="gtk-cancel":1 --button="gtk-ok":0 \
 --text="$(gettext '<b>\nAdjust the font of the current rofi window.\n</b>')" \
 
 --field="$(gettext 'Font')":FN "$FONVALUE" \
