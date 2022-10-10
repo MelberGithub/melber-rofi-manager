@@ -1,0 +1,19 @@
+These elements can be recolored
+
+01 - Title (Background and Text)
+02 - Searchbar (Background and Text)
+03 - Active Tab (Highlight, Background and Text)
+04 - Inactive Tab (Background and Text)
+05 - Selection (Background and Text)
+
+01 - Title Background
+02 - Title Text
+03 - Searchbar Background
+04 - Searchbar Text
+05 - Inactive Tab Background
+06 - Inactive Tab Text
+07 - Active Tab Background
+08 - Active Tab Text
+09 - Active Tab Highlight
+10 - Selection Background
+11 - Selection Text
