@@ -1,11 +1,12 @@
-/*******************************************************************************
- * ROFI Color theme MX-comfort-fancy by Melber
- * Theme based on fancy.rasi by DaveDavenport
- ********************************************************************************/
+/**
+ * ROFI Color theme by Melber & MX-Devs
+ * Theme based on fancy.rasi by Dave Davenport
+/**
  
  * {
     // MX-fancy
     // with tabs
+    // mxrr:template-fancy.rasi
     font: "Noto Sans 12";
 }
 
