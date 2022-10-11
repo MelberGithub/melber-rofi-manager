@@ -38,15 +38,6 @@ if [ ! -d $ROFIPATH/tempdir ]; then
 fi
 
 
-# Check if MX-comfort-rr exists, create if false
-
-if [ ! -f $ROFIPATH/MX-comfort-rr ]; then
-
-	printf "#1D2324 #CACDD0 #29353B #ffffff #29353B #CACDD0 #1D2324 #ffffff #0f56d9 #0f56d9 #ffffff MX-comfort yes" > $ROFIPATH/MX-comfort-rr
-
-fi
-
-
 # notify user and back up config.rasi if mx-rofi-manager has not already been launched
 
 if [ ! -f $ROFIPATH/MX-comfort-rr ]; then
@@ -70,11 +61,33 @@ cp $HOME/.config/rofi/config.rasi $HOME/.restore/rofi/config.rasi_$(date -d "tod
 cp /usr/share/rofi/config.rasi $HOME/.config/rofi/
 #cp /usr/share/rofi/rofi-help $HOME/.config/rofi/  << will be called from installation location
 #cp /usr/share/rofi/calc-help $HOME/.config/rofi/  << will be called from installation location
-cp /usr/share/mxrr/template.rasi $HOME/.config/rofi/themes/
+cp /usr/share/mxrr/template*.rasi $HOME/.config/rofi/themes/
 cp /usr/share/mxrr/MX-*.rasi $HOME/.config/rofi/themes/  
 
 fi
 fi
+
+
+# Check if MX-comfort-rr exists, create if false
+
+if [ ! -f $ROFIPATH/MX-comfort-rr ]; then
+
+	printf "#1D2324 #CACDD0 #29353B #ffffff #29353B #CACDD0 #1D2324 #ffffff #0f56d9 #0f56d9 #ffffff MX-comfort yes" > $ROFIPATH/MX-comfort-rr
+
+fi
+
+if [ ! -f $ROFIPATH/MX-fancy-rr ]; then
+
+	printf "#1D2324 #CACDD0 #29353B #ffffff #29353B #CACDD0 #1D2324 #ffffff #0f56d9 #0f56d9 #ffffff MX-fancy yes" > $ROFIPATH/MX-fancy-rr
+
+fi
+
+if [ ! -f $ROFIPATH/MX-sidebar-rr ]; then
+
+	printf "#1D2324 #CACDD0 #29353B #ffffff #29353B #CACDD0 #1D2324 #ffffff #0f56d9 #0f56d9 #ffffff MX-sidebar yes" > $ROFIPATH/MX-sidebar-rr
+
+fi
+
 
 ###################################################################
 ###################################################################
