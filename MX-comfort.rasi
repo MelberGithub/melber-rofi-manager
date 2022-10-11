@@ -34,8 +34,10 @@
 }
 
 window {
-    location: center;
     anchor: center;
+    location: center;
+    y-offset: 0;
+    x-offset: 0;
     width: 30%;
 }
 
