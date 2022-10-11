@@ -4,7 +4,7 @@
 #V.0.7 by Melber and MX Devs, 11 October 2022
 #License: GPL-3.0+
 #mxrm-icon based on applications-development and applications-interfacedesign icons from papirus icon set
-#added location and font functions
+#Changelog: Fixed issues identified by DO, added support for MX-fancy.rasi and MX-sidebar.rasi
 
 #set up translation
 
