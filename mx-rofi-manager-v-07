@@ -195,21 +195,6 @@ fi
 #check change and make current
 cd $HOME/.config/rofi/
 
-ROFIOLD="$(grep "@theme" $HOME/.config/rofi/config.rasi | tail -1)"
-ROFIOLDCOMMENT="//$ROFIOLD"
-
-
-if [ $NEWTHEME = $ROFIOLD ]; then
-
-	exit
-
-fi
-
-
-ROFIOLD=$(echo "${ROFIOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
-ROFIOLDCOMMENT=$(echo "${ROFIOLDCOMMENT}" | sed -e 's/[]$\/*[\^]/\\&/g' )
-
-
 if [ ! -f $ROFIPATH/$NEWTHEME.rasi ]; then
 
 	ROFINEW="@theme \""$ROFIPATHUSR"/"$NEWTHEME".rasi"\"
@@ -219,6 +204,25 @@ else
 	ROFINEW="@theme \""$ROFIPATH"/"$NEWTHEME".rasi"\"
 
 fi
+
+
+ROFIOLD="$(grep "@theme" $HOME/.config/rofi/config.rasi | tail -1)"
+ROFIOLDCOMMENT="//$ROFIOLD"
+
+
+if [ "$ROFINEW" = "$ROFIOLD" ]; then
+
+	TEXTROFINOCHANGE="$(eval_gettext 'No change to current settings!\n')"
+
+	yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=400 --height=200 --fixed --center --borders=20 --text="$TEXTROFINOCHANGE" --text-align=center --button="gtk-ok" \
+	
+
+	exit
+
+else
+
+ROFIOLD=$(echo "${ROFIOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
+ROFIOLDCOMMENT=$(echo "${ROFIOLDCOMMENT}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
 sed -i "s/$ROFIOLD/$ROFIOLDCOMMENT/g" config.rasi
 
@@ -232,6 +236,8 @@ TEXTTHEME2="$(eval_gettext 'All done!\n\n<b>$NEWTHEME</b> has been set as the cu
 yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=400 --height=200 --fixed --center --borders=20 --text="$TEXTTHEME2" --text-align=center --button="gtk-ok" \
 
 exit
+
+fi
 
 }
 
@@ -295,14 +301,11 @@ NEWTABS="modi: \""$TAB0","$TAB1","$TAB2"\";"
 	NEWTABS=$(echo "${NEWTABS}" | sed -e "s/calc/calc\:qalc/g" )
 	NEWTABS=$(echo "${NEWTABS}" | sed -e "s/,none//g" )
 
-	NEWTABS=$(echo "${NEWTABS}" | sed -e 's/[]$\/*[\^]/\\&/g' )
-
 
 OLDTABS="$(grep "modi" $HOME/.config/rofi/config.rasi)"
-OLDTABS=$(echo "${OLDTABS}" | sed -e 's/[]$\/*[\^]/\\&/g' )
 
 
-if [ $NEWTABS = $OLDTABS ]; then
+if [ "$NEWTABS" = "$OLDTABS" ]; then
 
 	TEXTTABNOCHANGE="$(eval_gettext 'No change to current settings!\n')"
 
@@ -314,6 +317,10 @@ if [ $NEWTABS = $OLDTABS ]; then
 else
 
 	cd $HOME/.config/rofi/
+	
+	NEWTABS=$(echo "${NEWTABS}" | sed -e 's/[]$\/*[\^]/\\&/g' )
+	OLDTABS=$(echo "${OLDTABS}" | sed -e 's/[]$\/*[\^]/\\&/g' )
+	
 	sed -i -e "s/${OLDTABS}/${NEWTABS}/g" config.rasi
 
 	TEXTTABS2="$(gettext 'All done!\n\nTab configuration has been updated.\n\n')"
@@ -676,7 +683,7 @@ fi
 ROFIFONTNEW="font: \""$FONNEW"\";"
 ROFIFONTNEW=$(echo "${ROFIFONTNEW}" | sed -e 's/[]$\/"*[\^]/\\&/g' )
 
-if [ $ROFIFONTNEW = $ROFIFONTOLD ]; then
+if [ "$ROFIFONTNEW" = "$ROFIFONTOLD" ]; then
 
 	TEXTFONNOCHANGE="$(eval_gettext 'No change to current settings!\n')"
 
