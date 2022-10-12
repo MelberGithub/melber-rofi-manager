@@ -1,14 +1,13 @@
 /**
- * ROFI Color theme by Melber & MX-Devs
- * Theme based on fancy.rasi by Dave Davenport
-/**
- 
- * {
+ * ROFI Color theme by Melber & MX-Devs inspired by fancy.rasi by Dave Davenport
+ */
+  * {
     // MX-fancy
     // with tabs
-    // mxrr:template-fancy
+    // mxrr:template-sidebar.rasi
     font: "Noto Sans 12";
-}
+} 
+
 
 * {
     // Title background
@@ -37,44 +36,45 @@
 
 window {
     border-color:     @color09;
-    background-color: @color01;
+    background-color: @color06;
     border:           1px;
-    padding:          0px;
     padding:          0.5em;
     spacing:          0px;
     location:       center;
     anchor:         center;
-    width: 30%;
-    children: [ inputbar, message, wrapper-mode-switcher, listview , pagerbox ];
+    width: 40%;
+    children: [ inputbar, wrapper-mode-switcher, listview , pagerbox ];
 }
 
 ////////
 inputbar {
-    padding: 0px 0px 0.5em;
     children:   [ wrapper ];
 }
 
 wrapper {
     orientation: horizontal;
     text-color:       @color04;
-    background-color: @color01;
+    background-color: @color03;
     border-color:     @color05;
     border: 1px;
-    border-radius: 5px;
+    border-radius: 3px;
+    //margin: 0px 0px 10px 0px;
     padding: 4px;
-    children:   [ icon-k, entry, icon-paste];
+    children:   [entry,icon-paste];
     spacing:  0.5em;
 }
 
-button-paste {
-    expand: false;
-    str: "gtk-paste";
-    size: 24;
+
+entry {
     vertical-align: 0.5;
-    action: "kb-cancel";
+    background-color: @color03;
+    text-color: inherit;
+    placeholder:"Type here to search";
+    padding:      0px 0px 0px 10px;
 }
 
 icon-paste {
+    background-color: @color03;
     expand: false;
     filename: "gtk-paste";
     size: 24;
@@ -82,42 +82,20 @@ icon-paste {
     action: "kb-primary-paste";
 }
 
-icon-k {
-    expand: false;
-    filename: "input-keyboard";
-    size: 24;
-    vertical-align: 0.5;
-}
-
-entry {
-    vertical-align: 0.5;
-    text-color: inherit;
-}
-
 
 ////////
-Message {
-    text-color:       @color06;
-    background-color: @color05;
-    border-color:     @color06;
-    border:           2px;
-    padding:          4px;
-    margin:           0px 0px 0.5em;
-    expand:           false;
-}
-
 
 ////////
 wrapper-mode-switcher {
     orientation: horizontal;
-
     expand:     false;
     spacing:    0;
     children: [ mode-switcher ];
 }
 
 mode-switcher {
-    border:  0px;
+    border:  10px 0px 0px 0px;
+    border-color: @color02;
     spacing: 0px;
     expand: true;
 }
@@ -128,18 +106,12 @@ button {
     border-color: @color09;
 }
 
-button selected.normal {
+button selected {
     text-color: @color11;
     background-color: @color01;
-
     border:       5px 0px 0px ;
     border-color: @color09;
 }
-
-sidebar {
-    expand: false;
-}
-
 
 
 
@@ -147,14 +119,15 @@ listview {
     spacing:      2px ;
     scrollbar:    false;
     padding:      0.5em;
-    background-color: @color05;
+    background-color: @color07;
     expand:       true;
+    lines:        12;
 }
 
 element {
     border:  1px;
     padding: 4px ;
-    background-color: @color05;
+    background-color: @color07;
     text-color:       @color06;
 }
 
@@ -170,8 +143,9 @@ element-icon {
 
 element.selected {
     border:  1px;
+    border-radius: 3px;
     border-color:     @color09;
-    background-color: @color10;
+    background-color: @color03;
     text-color:       @color11;
 }
 
@@ -185,23 +159,4 @@ pagerbox {
 
 pad {
   expand: true;
-}
-
-
-////////??????
-scrollbar {
-    width:        4px ;
-    border:       0;
-    handle-width: 8px ;
-    padding:      0;
-}
-
-sidebar {
-    border:       2px 0px 0px ;
-    border-color: @color09;
-}
-
-
-case-indicator {
-    text-color: @color04;
 }
