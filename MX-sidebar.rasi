@@ -1,5 +1,5 @@
 /**
- * ROFI Color theme inspired by sidebar.rasi by Dave Davenport
+ * ROFI Color theme by Melber & MX-Devs inspired by sidebar.rasi by Dave Davenport
  */
   * {
     // MX-sidebar
@@ -34,42 +34,35 @@
 }
 
 window {
-    // height:   80%;
     width: 15%;
     location: west;
     anchor:   west;
-//  text-color: @color04;
-    border: 5px 0px 0px 0px;
+//    border: 5px 0px 0px 0px;
     border-color: @color09;
 }
 
 mainbox {
-    children: [ inputbar, listview ];
+    children: [ inputbar, listview, mode-switcher ];
     expand: true;
     background-color: @color01;
-    spacing: 1em;
+    spacing: 0.5em;
 }
 
 inputbar {
-    children: [ prompt, entry ];
+    children: [icon-search, entry];
     background-color: @color01;
     padding: 4px;
-    border: 0px 0px 2px 0px;
+    border: 10px 10px 0px 0px;
 }
 
-prompt {
-    str: "Search :";
-    background-color: @color01;
-    text-color: @color04;
-    vertical-align: 0.5;
+icon-search {
+	expand   : false;
+	filename : "search-symbolic";
+	size : 18px;
+    margin: 0px 20px 0px 10px;
+	vertical-align: 0.5; 
+	background-color: @color01; 
 }
-
-//icon-search {
-//	expand   : false;
-//	filename : "search-symbolic";
-//	size : 14px;
-//	vertical-align: 0.5;  
-//}
 
 entry {
     background-color: @color03;
@@ -82,7 +75,7 @@ entry {
 listview {
     background-color: @color07;
     text-color: @color08;
-    padding: 0em 0.4em 0em 1em;
+    padding: 0em 0.5em 0em 1em;
     dynamic: false;
     lines: 30;
 }
@@ -110,19 +103,19 @@ element-icon {
 
 mode-switcher {
     background-color: @color01;
-    padding: 4px;
+    padding: 5px;
 }
 
 button {
     border: 5px 0px 0px 0px;
     background-color: @color05;
-    text-color: @color6;
+    text-color: @color06;
     border-color: @color05;
 }
 
 button selected {
     border: 5px 0px 0px 0px;
     background-color: @color07;
-    text-color: @color8;
+    text-color: @color08;
     border-color: @color09;
 }
