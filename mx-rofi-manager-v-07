@@ -1,10 +1,10 @@
 #!/bin/bash
 #Rofi-Manager
 #Tool to manage rofi settings
-#V.0.7 by Melber and MX Devs, 11 October 2022
+#V.0.7 by Melber and MX Devs, 12 October 2022
 #License: GPL-3.0+
 #mxrm-icon based on applications-development and applications-interfacedesign icons from papirus icon set
-#Changelog: Fixed issues identified by DO, added support for MX-fancy.rasi and MX-sidebar.rasi
+#Changelog: Fixed issues identified by DO, added ssh and filebrowser tabs
 
 #set up translation
 
@@ -258,24 +258,26 @@ source gettext.sh
 TEXTTABS1="$(gettext '\n<b>Select which tabs rofi should display</b>')"
 TEXTTABS2="$(gettext 'the MX default that displays available apps')"
 TEXTTABS3="$(gettext 'a powerful calculation engine')"
-TEXTTABS4="$(gettext 'displays all available executable files')"
-TEXTTABS5="$(gettext 'opens a secure shell')"
-TEXTTABS6="$(gettext 'enables easy switching')"
-TEXTTABS7="$(gettext 'a set of links about using rofi')"
-TEXTTABS8="$(gettext 'tab will not be shown\n')"
+TEXTTABS4="$(gettext 'fast access to files')"
+TEXTTABS5="$(gettext 'displays all available executable files')"
+TEXTTABS6="$(gettext 'opens a secure shell')"
+TEXTTABS7="$(gettext 'enables easy switching')"
+TEXTTABS8="$(gettext 'a set of links about using rofi')"
+TEXTTABS9="$(gettext 'tab will not be shown\n')"
 
 TABS=(yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --text-align=left --height=400 --width=600 --borders=20 --center --separator=" " --form --columns=3 --button="gtk-cancel":1 --button="gtk-ok":0 \
 --text="$TEXTTABS1
 <i>drun</i>: $TEXTTABS2
 <i>calc</i>: $TEXTTABS3
-<i>run</i>: $TEXTTABS4
-<i>ssh</i>: $TEXTTABS5
-<i>window</i>: $TEXTTABS6
-<i>help</i>: $TEXTTABS7
-<i>none</i>: $TEXTTABS8" 
---field="$(gettext '1st Tab')":CB "drun!calc!run!ssh!window!help" \
---field="$(gettext '2nd Tab')":CB "help!calc!drun!run!ssh!window!none" \
---field="$(gettext '3rd Tab')":CB "none!help!calc!drun!run!ssh!window" \
+<i>filebrowser</i>: $TEXTTABS4
+<i>run</i>: $TEXTTABS5
+<i>ssh</i>: $TEXTTABS6
+<i>window</i>: $TEXTTABS7
+<i>help</i>: $TEXTTABS8
+<i>none</i>: $TEXTTABS9" 
+--field="$(gettext '1st Tab')":CB "drun!calc!run!ssh!window!filebrowser!help" \
+--field="$(gettext '2nd Tab')":CB "help!calc!drun!run!ssh!filebrowser!window!none" \
+--field="$(gettext '3rd Tab')":CB "none!help!calc!drun!run!filebrowser!ssh!window" \
 )
 
 NEWTABS=$("${TABS[@]}")
@@ -1132,7 +1134,7 @@ TITLE="$(gettext 'MX-Rofi-Manager')"
 CLASS="mxrm"
 ICONPATH="/usr/share/pixmaps/mxrm-icon.png"
 
-TEXTMXRM="$(gettext '<b><big>Rofi Manager is a tool to configure rofi themes.</big>\n\nWhat would you like to do?</b>\n')"
+TEXTMXRM="$(gettext '<b><big>Rofi Manager is a tool to configure rofi themes.</big>\n\nWhat would you like to do?</b>\n\n')"
 BUTTONTHEME="$(gettext 'Change the current rofi theme')"
 BUTTONTABS="$(gettext 'Change the functions (<i>modi</i>) of the rofi tabs')"
 BUTTONPOSITION="$(gettext 'Change the location and size of the current Rofi window')"
