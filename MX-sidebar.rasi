@@ -1,9 +1,7 @@
 /**
- * ROFI Color theme
- * Inspired by sidebar.rasi by Dave Davenport
+ * ROFI Color theme inspired by sidebar.rasi by Dave Davenport
  */
- 
- * {
+  * {
     // MX-sidebar
     // with tabs
     // mxrr:template-sidebar.rasi
@@ -49,29 +47,29 @@ mainbox {
     children: [ inputbar, listview ];
     expand: true;
     background-color: @color01;
-    text-color: @color04;
     spacing: 1em;
 }
 
-
-//mode-switcher {
-//    border: 2px 0px 0px 0px;
-//    background-color: @color01;
-//    padding: 4px;
-//}
-
-//button selected {
-//    border-color: @color09;
-//    text-color: @color4;
-//}
-
 inputbar {
-    children: [ entry ];
-   background-color: @color01;
-//    text-color: @color04;
+    children: [ prompt, entry ];
+    background-color: @color01;
     padding: 4px;
     border: 0px 0px 2px 0px;
 }
+
+prompt {
+    str: "Search :";
+    background-color: @color01;
+    text-color: @color04;
+    vertical-align: 0.5;
+}
+
+//icon-search {
+//	expand   : false;
+//	filename : "search-symbolic";
+//	size : 14px;
+//	vertical-align: 0.5;  
+//}
 
 entry {
     background-color: @color03;
@@ -82,11 +80,10 @@ entry {
 
 
 listview {
-    background-color: @color01;
-    text-color: @color04;
+    background-color: @color07;
+    text-color: @color08;
     padding: 0em 0.4em 0em 1em;
     dynamic: false;
-    // lines: 0;
     lines: 30;
 }
 
@@ -96,7 +93,7 @@ element-text {
 }
 
 element selected {
-    background-color: @color09;
+    background-color: @color10;
     text-color: @color11;
 }
 
@@ -105,40 +102,27 @@ element normal {
     text-color: @color11;
 }
 
-//element normal urgent {
-//    text-color: @color11;
-//}
-
-//element alternate normal {
-//}
-
-//element alternate active {
-//    text-color: @color10;
-//}
-
-//element alternate urgent {
- //   text-color: @color10;
-//}
-
-element selected active {
-    background-color: @color10;
-    text-color: @color11;
-}
-
-//element selected urgent {
- //   background-color: @color10;
- //   text-color: @color11;
-//}
-
 element-icon {
     size: 30;
     background-color: inherit;
 }
 
-//error-message {
-//    expand: true;
-//    background-color: @color10;
-//    border-color: @color10;
-//    border: 2px;
-//    padding: 1em;
-//}
+
+mode-switcher {
+    background-color: @color01;
+    padding: 4px;
+}
+
+button {
+    border: 5px 0px 0px 0px;
+    background-color: @color05;
+    text-color: @color6;
+    border-color: @color05;
+}
+
+button selected {
+    border: 5px 0px 0px 0px;
+    background-color: @color07;
+    text-color: @color8;
+    border-color: @color09;
+}
