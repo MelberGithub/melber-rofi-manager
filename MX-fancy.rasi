@@ -6,35 +6,8 @@
  * {
     // MX-fancy
     // with tabs
-    // mxrr:template-fancy.rasi
+    // mxrr:template-fancy
     font: "Noto Sans 12";
-}
-
-
-* {
-    foreground:                  #ffffff;
-    normal-foreground:           @foreground;
-    selected-normal-foreground:  #ffffff;
-    urgent-foreground:           #ffffff;
-    selected-urgent-foreground:  #ffffff;
-    alternate-urgent-foreground: @urgent-foreground;
-    active-foreground:           #ffffff;
-    selected-active-foreground:  #ffffff;
-    alternate-active-foreground: @active-foreground;
-	
-    bordercolor:                 #0f56d9;
-    separatorcolor:              #0f56d9;
-	
-    background:                  #CACDD0;
-    normal-background:           #1D2324;
-    selected-normal-background:  #29353B;
-    alternate-normal-background: #1D2324;
-    urgent-background:           #1D2324;
-    selected-urgent-background:  #29353B;
-    alternate-urgent-background: #1D2324;
-    active-background:           #1D2324;
-    selected-active-background:  #29353B;
-    alternate-active-background: #1D2324;
 }
 
 * {
@@ -63,8 +36,8 @@
 }
 
 window {
-    border-color:     @color01;
-    background-color: @color02;
+    border-color:     @color09;
+    background-color: @color01;
     border:           1px;
     padding:          0px;
     padding:          0.5em;
@@ -75,161 +48,17 @@ window {
     children: [ inputbar, message, wrapper-mode-switcher, listview , pagerbox ];
 }
 
-
-pagerbox {
-    expand: false;
-    orientation: horizontal;
-    children: [ pad ];
-}
-
-pad {
-  expand: true;
-}
-
-wrapper-mode-switcher {
-    orientation: horizontal;
-
-    expand:     false;
-    spacing:    0;
-    children: [ mode-switcher ];
-}
-
-mode-switcher {
-    border:  0px;
-    spacing: 0px;
-    expand: true;
-}
-
-button {
-    padding:      2px;
-    background-color: @color02;
-    border-color: @color09;
-}
-
-button selected.normal {
-    text-color: @color11;
-    background-color: @color01;
-
-    border:       5px 0px 0px ;
-    border-color: @color09;
-}
-
-sidebar {
-    expand: false;
-}
-
-message {
-    text-color:       @color01;
-    background-color: @color02;
-    border-color:     @color03;
-    border:           2px;
-    padding:          4px;
-    margin:           0px 0px 0.5em;
-    expand:           false;
-}
-
-listview {
-    spacing:      2px ;
-    scrollbar:    false;
-    padding:      0.5em;
-    background-color: @color07;
-    expand:       true;
-}
-
-element {
-    border:  1px;
-    padding: 4px ;
-    background-color: @color07;
-    text-color:       @color08;
-}
-
-element-text {
-    background-color: inherit;
-    text-color:       inherit;
-}
-
-element-icon {
-    size: 30;
-    background-color: inherit;
-}
-
-element.normal.normal {
-    background-color: @color07;
-    text-color:       @color08;
-}
-
-element.normal.urgent {
-    background-color: @color07;
-    text-color:       @color08;
-}
-
-element.normal.active {
-    background-color: @color07;
-    text-color:       @color08;
-}
-
-element.selected.normal {
-    border:  1;
-    border-color:     @color10;
-    background-color: @color05;
-    text-color:       @color11;
-}
-
-element.selected.urgent {
-    border:  1;
-    border-color:     @color10;
-    background-color: @color05;
-    text-color:       @color11;
-}
-
-element.selected.active {
-    border:  1;
-    border-color:     @color10;
-    background-color: @color05;
-    text-color:       @color11;
-}
-
-element.alternate.normal {
-    background-color: @color07;
-    text-color:       @color11;
-}
-
-element.alternate.urgent {
-    background-color: @color07;
-    text-color:       @color11;
-}
-
-element.alternate.active {
-    background-color: @color07;
-    text-color:       @color11;
-}
-
-scrollbar {
-    width:        4px ;
-    border:       0;
-    handle-width: 8px ;
-    padding:      0;
-}
-
-sidebar {
-    border:       2px 0px 0px ;
-    border-color: @color09;
-}
-
+////////
 inputbar {
-    text-color: @color04;
     padding: 0px 0px 0.5em;
-}
-
-case-indicator {
-    text-color: @color04;
+    children:   [ wrapper ];
 }
 
 wrapper {
     orientation: horizontal;
-    text-color:       @color01;
-    background-color: @color04;
-    border-color:     @color01;
+    text-color:       @color04;
+    background-color: @color01;
+    border-color:     @color05;
     border: 1px;
     border-radius: 5px;
     padding: 4px;
@@ -262,16 +91,117 @@ icon-k {
 
 entry {
     vertical-align: 0.5;
+    text-color: inherit;
 }
 
-inputbar {
-    children:   [ wrapper ];
+
+////////
+Message {
+    text-color:       @color06;
+    background-color: @color05;
+    border-color:     @color06;
+    border:           2px;
+    padding:          4px;
+    margin:           0px 0px 0.5em;
+    expand:           false;
 }
 
-error-message {
-    background-color: color10;
-    border-color: color10;
-    border-radius: 10px;
-    border: 2px;
-    padding: 0.5em;
+
+////////
+wrapper-mode-switcher {
+    orientation: horizontal;
+
+    expand:     false;
+    spacing:    0;
+    children: [ mode-switcher ];
+}
+
+mode-switcher {
+    border:  0px;
+    spacing: 0px;
+    expand: true;
+}
+
+button {
+    padding:      2px;
+    background-color: @color02;
+    border-color: @color09;
+}
+
+button selected.normal {
+    text-color: @color11;
+    background-color: @color01;
+
+    border:       5px 0px 0px ;
+    border-color: @color09;
+}
+
+sidebar {
+    expand: false;
+}
+
+
+
+
+listview {
+    spacing:      2px ;
+    scrollbar:    false;
+    padding:      0.5em;
+    background-color: @color05;
+    expand:       true;
+}
+
+element {
+    border:  1px;
+    padding: 4px ;
+    background-color: @color05;
+    text-color:       @color06;
+}
+
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+element-icon {
+    size: 30;
+    background-color: inherit;
+}
+
+element.selected {
+    border:  1px;
+    border-color:     @color09;
+    background-color: @color10;
+    text-color:       @color11;
+}
+
+
+////////
+pagerbox {
+    expand: false;
+    orientation: horizontal;
+    children: [ pad ];
+}
+
+pad {
+  expand: true;
+}
+
+
+////////??????
+scrollbar {
+    width:        4px ;
+    border:       0;
+    handle-width: 8px ;
+    padding:      0;
+}
+
+sidebar {
+    border:       2px 0px 0px ;
+    border-color: @color09;
+}
+
+
+case-indicator {
+    text-color: @color04;
 }
