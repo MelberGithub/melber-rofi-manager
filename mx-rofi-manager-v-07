@@ -386,7 +386,7 @@ TEXTSORRY="$(gettext 'Sorry, this function is only available for MX-comfort base
 if [ "$ROFICOMFORTCHECK" = "" ]; then
 
 	yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" \
-	--borders=20 --width=600 --height=600 --center --fixed --margins=20 --button="gtk-close" \
+	--borders=20 --width=600 --height=600 --center --fixed --margins=20 \
 	--text="$TEXTSORRY" --text-align=center --button="gtk-ok" \
 	
 	exit
