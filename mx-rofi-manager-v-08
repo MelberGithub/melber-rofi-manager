@@ -827,7 +827,18 @@ elif [ "$HELPTEMP" = template-sidebar ]; then
 fi
 
 
-yad --title="$(gettext 'MX-Rofi-Recolor Help')"  --class=mxrrhelp --window-icon="$ICONPATH" --borders=20 --fixed --center --width=600 --height=400 --image /usr/share/pixmaps/mxrr-help.png --button="$(gettext 'Return to Main Window')":1 \
+yad --title="$(gettext 'MX-Rofi-Recolor Help')"  --class=mxrrhelp --window-icon="$ICONPATH" --borders=20 --fixed --geometry=600x400+200+200 --image /usr/share/pixmaps/"$HELPPNG" --button="$(gettext 'Return to Main Window')":1 \
+--text="01	$(gettext 'Title Background')" \
+--text="02	$(gettext 'Title Text')" \
+--text="03	$(gettext 'Searchbar Background')" \
+--text="04	$(gettext 'Searchbar Text')" \
+--text="05	$(gettext 'Inactive Tab Background')" \
+--text="06	$(gettext 'Inactive Tab Text')" \
+--text="07	$(gettext 'Active Tab Background')" \
+--text="08	$(gettext 'Active Tab Text')" \
+--text="09	$(gettext 'Active Tab Highlight')" \
+--text="10	$(gettext 'Selection Background')" \
+--text="11	$(gettext 'Selection Text')"
 
 }
 
