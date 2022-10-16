@@ -1,12 +1,12 @@
 /**
- * ROFI Color theme
+ * ROFI Color theme by Melber & MX-Devs
  */
-* {
+  * {
     // MX-comfort
     // with tabs
-    // mxrr:template.rasi
+    // mxrr template-comfort.rasi
     font: "Noto Sans 12";
-}
+} 
 
 * {
     // Title background
@@ -34,11 +34,11 @@
 }
 
 window {
-    anchor: center;
-    location: center;
-    y-offset: 0;
-    x-offset: 0;
-    width: 30%;
+anchor: center;
+location: center;
+y-offset: 0;
+x-offset: 0;
+width: 30%;
 }
 
 mainbox {
@@ -67,6 +67,7 @@ entry {
     border-radius:  5px 5px 5px 5px;
     background-color: @color03;
     text-color: @color04;
+    font: "Noto Sans Bold 12";
     vertical-align: 0.5;
     padding: 5px 15px;
 }
@@ -99,7 +100,7 @@ button selected.normal {
 
 listview {
     columns: 1;
-    lines: 12;
+lines: 12;
     background-color: @color07;
 }
 
