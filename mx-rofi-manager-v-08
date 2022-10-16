@@ -1,7 +1,7 @@
 #!/bin/bash
 #Rofi-Manager
 #Tool to manage rofi settings
-#V.0.8 by Melber and MX Devs, 14 October 2022
+#V.0.8 by Melber and MX Devs, 17 October 2022
 #License: GPL-3.0+
 #mxrm-icon based on applications-development and applications-interfacedesign icons from papirus icon set
 #Changelog: 07 Fixed issues identified by DO, added ssh and filebrowser tabs 08 added mxrr help pngs
@@ -20,7 +20,7 @@ ROFIPATH="$HOME/.config/rofi/themes"
 ICONPATH="/usr/share/pixmaps/mxrm-icon.png"
 
 #delete stylelist and tempclr after use
-trap "rm -r "$ROFIPATH/tempdir" " EXIT
+#trap "rm -r "$ROFIPATH/tempdir" " EXIT
 
 #
 if [ ! -d $ROFIPATH ]; then
@@ -804,41 +804,55 @@ color_picker() {
 }
 
 
+# make mxrrhelptemp
+echo "$BASESTYLE" > $ROFIPATH/tempdir/mxrrhelptemp.txt
+
+
 # function to be called with help button
 
 mxrrhelp() {
+TITLE="$(gettext 'MX-Rofi-Recolor Help')"
+CLASS="mxrm"
+ROFIPATH="$HOME/.config/rofi/themes"
+ICONPATH="/usr/share/pixmaps/mxrm-icon.png"
 source gettext.sh
 
-HELPTEMP="$(grep "mxrr" $BASESTYLE.rasi)"
-HELPTEMP=$(echo "${HELPTEMP}" | sed -e 's/mxrr\://g' )
+read -r -a BASESTYLE < $ROFIPATH/tempdir/mxrrhelptemp.txt
 
-if [ "$HELPTEMP" = template ]; then
+	BASE="${BASESTYLE[0]}"
 
-	HELPPNG=mxrr-help-comfort.png
+HELPTEMP="$(grep "mxrr" $ROFIPATH/$BASE.rasi)"
+HELPTEMP=$(echo "${HELPTEMP}" | sed -e 's/\/\///g' | sed -e 's/mxrr//g' | sed -e 's/ //g' )
 
-elif [ "$HELPTEMP" = template-fancy ]; then
+HELPPNG="mxrr-help-comfort.png"
+
+if [ "$HELPTEMP" = template-fancy.rasi ]; then
 
 	HELPPNG=mxrr-help-fancy.png
 	
-elif [ "$HELPTEMP" = template-sidebar ]; then
+elif [ "$HELPTEMP" = template-sidebar.rasi ]; then
 
 	HELPPNG=mxrr-help-sidebar.png
 
 fi
 
 
-yad --title="$(gettext 'MX-Rofi-Recolor Help')"  --class=mxrrhelp --window-icon="$ICONPATH" --borders=20 --fixed --geometry=600x400+200+200 --image /usr/share/pixmaps/"$HELPPNG" --button="$(gettext 'Return to Main Window')":1 \
---text="01	$(gettext 'Title Background')" \
---text="02	$(gettext 'Title Text')" \
---text="03	$(gettext 'Searchbar Background')" \
---text="04	$(gettext 'Searchbar Text')" \
---text="05	$(gettext 'Inactive Tab Background')" \
---text="06	$(gettext 'Inactive Tab Text')" \
---text="07	$(gettext 'Active Tab Background')" \
---text="08	$(gettext 'Active Tab Text')" \
---text="09	$(gettext 'Active Tab Highlight')" \
---text="10	$(gettext 'Selection Background')" \
---text="11	$(gettext 'Selection Text')"
+MXRRHELPTEXT1="$(gettext 'Title Background')"
+MXRRHELPTEXT2="$(gettext 'Title Text')"
+MXRRHELPTEXT3="$(gettext 'Searchbar Background')"
+MXRRHELPTEXT4="$(gettext 'Searchbar Text')"
+MXRRHELPTEXT5="$(gettext 'Inactive Tab Background')"
+MXRRHELPTEXT6="$(gettext 'Inactive Tab Text')"
+MXRRHELPTEXT7="$(gettext 'Active Tab Background')"
+MXRRHELPTEXT8="$(gettext 'Active Tab Text')"
+MXRRHELPTEXT9="$(gettext 'Active Tab Highlight')"
+MXRRHELPTEXT10="$(gettext 'Selection Background')"
+MXRRHELPTEXT11="$(gettext 'Selection Text')"
+
+
+yad --title="$(gettext 'MX-Rofi-Recolor Help')"  --class=mxrrhelp --window-icon="
+$ICONPATH" --borders=20 --fixed --posx=10 --posy=10 --image /usr/share/pixmaps/$HELPPNG --button="$(gettext 'Return to Main Window')":1 \
+--text=" 01 $MXRRHELPTEXT1 \n\n 02 $MXRRHELPTEXT2 \n\n 03 $MXRRHELPTEXT3 \n\n 04 $MXRRHELPTEXT4 \n\n 05 $MXRRHELPTEXT5 \n\n 06 $MXRRHELPTEXT6 \n\n 07 $MXRRHELPTEXT7 \n\n 08 $MXRRHELPTEXT8 \n\n 09 $MXRRHELPTEXT9 \n\n 10 $MXRRHELPTEXT10 \n\n 11 $MXRRHELPTEXT11 \n\n"
 
 }
 
