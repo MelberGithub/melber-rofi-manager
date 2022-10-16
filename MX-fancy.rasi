@@ -95,7 +95,7 @@ wrapper-mode-switcher {
 
 mode-switcher {
     border:  10px 0px 0px 0px;
-    border-color: @color02;
+    border-color: @color01;
     spacing: 0px;
     expand: true;
 }
