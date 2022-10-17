@@ -1007,7 +1007,7 @@ done
 cd $ROFIPATH
 
 TEMPLATE="$(grep "mxrr" $BASESTYLE.rasi)"
-TEMPLATE=$(echo "${TEMPLATE}" | sed -e 's/mxrr\://g' )
+TEMPLATE=$(echo "${TEMPLATE}" | sed -e 's/\/\///g' | sed -e 's/mxrr//g' | sed -e 's/ //g' )
 
 
 echo ""$COL01" "$COL02" "$COL03" "$COL04" "$COL05" "$COL06" "$COL07" "$COL08" "$COL09" "$COL10" "$COL11" "$NEWNAME" "$MAKECUR"" > $ROFIPATH/$NEWNAME-rr
