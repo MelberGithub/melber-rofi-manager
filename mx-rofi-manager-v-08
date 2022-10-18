@@ -21,7 +21,7 @@ ROFIPATH="$HOME/.config/rofi/themes"
 ICONPATH="/usr/share/pixmaps/mxrm-icon.png"
 
 #delete stylelist and tempclr after use
-#trap "rm -r "$ROFIPATH/tempdir" " EXIT
+trap "rm -r "$ROFIPATH/tempdir" " EXIT
 
 #
 if [ ! -d $ROFIPATH ]; then
@@ -177,8 +177,6 @@ ls -f *rasi >> $ROFIPATH/tempdir/rasilist.txt
 
 sed -i 's/.rasi//g' $ROFIPATH/tempdir/rasilist.txt
 sed -i '/template/d' $ROFIPATH/tempdir/rasilist.txt
-#sed -i '/template-fancy/d' $ROFIPATH/tempdir/rasilist.txt
-#sed -i '/template-sidebar/d' $ROFIPATH/tempdir/rasilist.txt
 
 
 #select theme
@@ -361,7 +359,6 @@ rofi_help-position() {
 
 TITLE="$(gettext 'MX-Rofi-Help')"
 CLASS="mxrm"
-#/usr/share/mx-rofi-manager/mxrm-helptext-position 
 
 yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" \
 --borders=20 --width=600 --height=600 --center --fixed --text-info --wrap --margins=20 < /usr/share/rofi/mxrm-helptext-position  --fontname="12" --button="gtk-close" \
@@ -376,8 +373,8 @@ export -f rofi_help-position
 #get current rofi & check if MX-comfort based
 ROFICURRENT="$(grep '@theme' $HOME/.config/rofi/config.rasi | tail -1)"
 
-ROFICURRENT=$(echo "${ROFICURRENT}" | sed -e 's/\"//g' )
-ROFICURRENT=$(echo "${ROFICURRENT}" | sed -e 's/@theme//g' )
+ROFICURRENT=$(echo "${ROFICURRENT}" | sed -e 's/\"//g' | sed -e 's/@theme//g' | sed -e 's/ //g')
+#ROFICURRENT=$(echo "${ROFICURRENT}" | sed -e 's/@theme//g' )
 
 
 #check theme is MX-comfort based
@@ -485,7 +482,8 @@ ROFIHEIGHTOLD="$(grep "lines" $ROFICURRENT)"
 		sed -ie "/^listview/a $ROFIHEIGHTOLD" $ROFICURRENT
 
 	fi
-	
+
+
 LINVALUE=$(echo "${ROFIHEIGHTOLD}" | sed -e 's/lines\://g' | sed -e 's/\;//g' )
 
 ROFIHEIGHTOLD=$(echo "${ROFIHEIGHTOLD}" | sed -e 's/[]$\/*[\^]/\\&/g' )
@@ -589,7 +587,14 @@ else
 	TEXTPOSDONE1="$(eval_gettext 'All done!\nPosition and size of the current rofi theme have been amended.')"
 
 	yad --title="$TITLE" --class="$CLASS" --window-icon="$ICONPATH" --width=400 --height=200 --fixed --center --borders=20 --text="$TEXTPOSDONE1" --text-align=center --button="gtk-ok" \
-	
+
+
+#delete rasie
+
+STRANGERASIE=$(echo "${ROFICURRENT}" | sed -e 's/rasi/rasie/g' )
+
+	rm "$STRANGERASIE"
+
 
 exit
 
@@ -1115,6 +1120,8 @@ cd $ROFIPATH
 ls -f *rasi > $ROFIPATH/tempdir/editlist.txt
 cd $ROFIPATHUSR
 ls -f *rasi >> $ROFIPATH/tempdir/editlist.txt
+
+sed -i '/template/d' $ROFIPATH/tempdir/editlist.txt
 
 
 #select theme
