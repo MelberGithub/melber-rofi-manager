@@ -1,10 +1,11 @@
 #!/bin/bash
 #Rofi-Manager
 #Tool to manage rofi settings
-#V.0.8 by Melber and MX Devs, 17 October 2022
+#V.0.8 by Melber and MX Devs, 18 October 2022
 #License: GPL-3.0+
 #mxrm-icon based on applications-development and applications-interfacedesign icons from papirus icon set
-#Changelog: 07 Fixed issues identified by DO, added ssh and filebrowser tabs 08 added mxrr help pngs
+#Changelog: 07 Fixed issues identified by DO, added ssh and filebrowser tabs 
+#Changelog: 08 added mxrr fancy and sidebar.rasi, added help pngs
 
 #set up translation
 
@@ -174,10 +175,10 @@ ls -f *rasi > $ROFIPATH/tempdir/rasilist.txt
 cd $ROFIPATHUSR
 ls -f *rasi >> $ROFIPATH/tempdir/rasilist.txt
 
-sed -i 's|.rasi||g' $ROFIPATH/tempdir/rasilist.txt
-sed -i "s|template-comfort||g" $ROFIPATH/tempdir/rasilist.txt
-sed -i "s|template-fancy||g" $ROFIPATH/tempdir/rasilist.txt
-sed -i "s|template-sidebar||g" $ROFIPATH/tempdir/rasilist.txt
+sed -i 's/.rasi//g' $ROFIPATH/tempdir/rasilist.txt
+sed -i '/template/d' $ROFIPATH/tempdir/rasilist.txt
+#sed -i '/template-fancy/d' $ROFIPATH/tempdir/rasilist.txt
+#sed -i '/template-sidebar/d' $ROFIPATH/tempdir/rasilist.txt
 
 
 #select theme
@@ -825,7 +826,7 @@ read -r -a BASESTYLE < $ROFIPATH/tempdir/mxrrhelptemp.txt
 	BASE="${BASESTYLE[0]}"
 
 HELPTEMP="$(grep "mxrr" $ROFIPATH/$BASE.rasi)"
-HELPTEMP=$(echo "${HELPTEMP}" | sed -e 's/\/\///g' | sed -e 's/mxrr//g' | sed -e 's/ //g' )
+HELPTEMP=$(echo "${HELPTEMP}" | sed -e 's/\/\// /g' | sed -e 's/mxrr/ /g' | sed -e 's/ //g' )
 
 
 if [ "$HELPTEMP" = template-fancy.rasi ]; then
@@ -1013,7 +1014,7 @@ done
 cd $ROFIPATH
 
 TEMPLATE="$(grep "mxrr" $BASESTYLE.rasi)"
-TEMPLATE=$(echo "${TEMPLATE}" | sed -e 's/\/\///g' | sed -e 's/mxrr//g' | sed -e 's/ //g' )
+TEMPLATE=$(echo "${TEMPLATE}" | sed -e 's/\/\// /g' | sed -e 's/mxrr/ /g' | sed -e 's/ //g' )
 
 
 echo ""$COL01" "$COL02" "$COL03" "$COL04" "$COL05" "$COL06" "$COL07" "$COL08" "$COL09" "$COL10" "$COL11" "$NEWNAME" "$MAKECUR"" > $ROFIPATH/$NEWNAME-rr
@@ -1026,7 +1027,7 @@ if [ "$TEMPLATE" = template-fancy.rasi ]; then
 elif [ "$TEMPLATE" = template-sidebar.rasi ]; then
 
 	cp $ROFIPATH/template-sidebar.rasi $ROFIPATH/$NEWNAME.rasi
-	
+
 else
 
 	cp $ROFIPATH/template-comfort.rasi $ROFIPATH/$NEWNAME.rasi
