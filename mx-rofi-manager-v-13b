@@ -1,7 +1,7 @@
 #!/bin/bash
 #Rofi-Manager
 #Tool to manage rofi settings
-#V.0.13b by Melber and MX Devs, xx November 2022
+#V.0.13b by Melber and MX Devs, 23 November 2022
 #License: GPL-3.0+
 #mxrm-icon based on applications-development and applications-interfacedesign icons from papirus icon set
 #Changelog 11b: moved location and font as global settings to separate mxrm-settings.rasi, added config.rasi edit
@@ -386,45 +386,45 @@ fi
 #sed -i "$ s/$/abc/" $ROFIPATH/tempdir/xxx.txt
 
 read -r -a THEMESEL < $ROFIPATH/tempdir/themesel.txt
-read -r -a THEMETOG < $ROFIPATH/tempdir/themetog.txt
+read -r -a TOGGLE < $ROFIPATH/tempdir/themetog.txt
 
-#	  NEWTHEME1="${MAINREAD[0]}"
-#	  NEWTHEME2="${MAINREAD[1]}"
+	  NEWTHEME="${THEMESEL[0]}"
+#	  TOGGLE="${MAINREAD[0]}"
 	  
 
 
-echo "themesel1
-$THEMESEL
-xxx"
+#echo "themesel1
+#$THEMESEL
+#xxx"
 
-echo "themetog1
-$THEMETOG
-xxx"
+#echo "themetog1
+#$THEMETOG
+#xxx"
 
 	  
-if [ "$THEMETOG" = "TRUE" ]; then
+#if [ "$THEMETOG" = TRUE ]; then
+#
+#	NEWTHEME="$THEMESEL"
+#	TOGGLE="$THEMETOG"
+	
+#	elif [ "$THEMETOG" = "FALSE " ]; then
 
-	NEWTHEME="$THEMESEL"
-	TOGGLE="$THEMETOG"
+#	NEWTHEME="$THEMESEL"
+#	TOGGLE="$THEMETOG"
 	
-	elif [ "$THEMETOG" = "FALSE " ]; then
-
-	NEWTHEME="$THEMESEL"
-	TOGGLE="$THEMETOG"
+#	else
+#	
+#	NEWTHEME="$THEMETOG"
+#	TOGGLE="$THEMESEL"
 	
-	else
-	
-	NEWTHEME="$THEMETOG"
-	TOGGLE="$THEMESEL"
-	
-fi
+#fi
 
 echo "themesel2
-$THEMESEL
+$NEWTHEME
 xxx"
 
 echo "themetog2
-$THEMETOG
+$TOGGLE
 xxx"
 
 
@@ -490,26 +490,27 @@ else
 
 fi
 
+
 #check and set local global toggle
 
 
-TOGGLECHECK="$(grep '//@import' config.rasi)"
+#TOGGLECHECK="$(grep '//@import' config.rasi)"
 
-if [ -z "$TOGGLECHECK" ]; then
+#if [ -z "$TOGGLECHECK" ]; then
 
-	TOGGLECHECK="FALSE"
+#	TOGGLECHECK=FALSE
 	
-else
+#else
 
-	TOGGLECHECK="TRUE"
+#	TOGGLECHECK=TRUE
 
-fi
+#fi
 
 
 #if [ "$TOGGLECHECK" != "$TOGGLE" ]; then
 
 
-	if [ "$TOGGLE" = FALSE ]; then
+if [ "$TOGGLE" = FALSE ]; then
 
 	sed -i -e "s/@import/\/\/@import/g" config.rasi
 
